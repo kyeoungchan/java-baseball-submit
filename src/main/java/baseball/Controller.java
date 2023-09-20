@@ -43,7 +43,18 @@ public class Controller {
     }
 
     public void inputIfContinue() {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
+        String input = null;
+        try {
+            input = br.readLine();
+        } catch (IOException e) {
+            // 잘못된 입력은 IllegalArgumentException으로 날린다.
+            throw new IllegalArgumentException(e);
+        }
+        Validator.validateContinue(input); // 문제가 있으면 예외가 날라가게 돼있다.
+        int inputFlag = Integer.parseInt(input);
+        printIfContinue(inputFlag);
     }
 
     public void printIfContinue(int number) {
