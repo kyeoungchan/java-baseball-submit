@@ -6,7 +6,21 @@ import java.io.InputStreamReader;
 
 public class Controller {
 
-    void inputUserNum() {
+    private static Controller instance;
+    private final Service service;
+
+    private Controller() {
+        service = Service.getInstance();
+    }
+
+    public static Controller getInstance() {
+        if (instance == null) {
+            instance = new Controller();
+        }
+        return instance;
+    }
+
+    public void inputUserNum() {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -22,15 +36,17 @@ public class Controller {
         printResult(inputNum);
     }
 
-    void printResult(int number) {
+    public void printResult(int number) {
+        StringBuilder resultSB = service.calculateResult(number);
+        System.out.println(new String(resultSB));
+        inputIfContinue();
+    }
+
+    public void inputIfContinue() {
 
     }
 
-    void inputIfContinue() {
-
-    }
-
-    void printIfContinue(int number) {
+    public void printIfContinue(int number) {
 
     }
 
