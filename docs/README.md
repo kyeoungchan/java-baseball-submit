@@ -28,6 +28,7 @@
     - `void inputIfContinue()`
         - → Validator.validateContinue(String inputFlag)
         - → printIfContinue(int number)
+        - -> isRemaining()
     - `void printIfContinue(int number)`
 - Service
     - `StringBuilder generateRandomNumber()`
@@ -37,6 +38,8 @@
         - → generateRandomNumber() call
         - → countBall(int inputNum, int randomNum) call
         - → countStrike(int inputNum, intrandomNum) call
+        - -> isRemaining() call
+    - boolean isRemaining()
 - Validator
     - `void validateThreeNum(String inputNum)`
     - `void validateContinue(String inputFlag)`
