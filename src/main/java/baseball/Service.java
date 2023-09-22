@@ -6,7 +6,6 @@ import java.util.List;
 public class Service {
 
     private static Service instance;
-    //    private boolean remaining = true;
     private final ThreadLocal<Boolean> gamePlayingStatus = new ThreadLocal<>();
     private final ThreadLocal<Integer> randomNumberHolder = new ThreadLocal<>();
 
@@ -26,14 +25,20 @@ public class Service {
     }
 
     public int generateRandomNumber() {
-        int randomNum = 0;
+        int randomNum = (int) (Math.random() * 1000);
+        String randomStr = String.valueOf(randomNum);
 
-        while (String.valueOf(randomNum).contains("0")) {
+        while (randomStr.contains("0") || !allDifferent(randomStr)) {
             randomNum = (int) (Math.random() * 1000);
+            randomStr = String.valueOf(randomNum);
         }
         randomNumberHolder.set(randomNum);
 
         return randomNum;
+    }
+
+    private boolean allDifferent(String randomStr) {
+        return randomStr.charAt(0) != randomStr.charAt(1) && randomStr.charAt(1) != randomStr.charAt(2) && randomStr.charAt(0) != randomStr.charAt(2);
     }
 
     public StringBuilder calculateResult(int inputNum) {
@@ -60,6 +65,7 @@ public class Service {
                 sb.append(STRIKE);
                 if (strikeCount == 3) {
                     gamePlayingStatus.set(false);
+                    randomNumberHolder.remove(); // 매 게임이 끝날 때마다 랜덤함수는 종료시킨다.
                 }
             }
         }
@@ -110,5 +116,12 @@ public class Service {
 
     public boolean getGameStatus() {
         return gamePlayingStatus.get();
+    }
+
+    /**
+     * 사용자가 게임을 종료하였으므로 gamePlayingStatus도 제거한다.
+     */
+    public void destroyGameStatus() {
+        gamePlayingStatus.remove();
     }
 }

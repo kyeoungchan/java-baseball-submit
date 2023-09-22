@@ -58,7 +58,7 @@ public class Controller {
     }
 
     public void inputIfContinue() {
-        System.out.println();
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         String input = null;
@@ -75,7 +75,9 @@ public class Controller {
     public void printIfContinue(int number) {
 
         if (number == 1) {
-            inputUserNum();
+            initiatingGame();
+        } else if (number == 2) {
+            service.destroyGameStatus();
         }
     }
 
