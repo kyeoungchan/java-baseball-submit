@@ -35,8 +35,7 @@ public class Controller {
             throw new IllegalArgumentException(e);
         }
         Validator.validateThreeNum(input); // 문제가 있으면 예외가 날라가게 돼있다.
-        int inputNum = Integer.parseInt(input);
-        printResult(inputNum);
+        printResult(Integer.parseInt(input));
     }
 
     public void printResult(int number) {
