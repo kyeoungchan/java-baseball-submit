@@ -1,5 +1,9 @@
 package baseball;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Service {
 
     private static Service instance;
@@ -32,6 +36,8 @@ public class Service {
         int randomNum = generateRandomNumber();
 
         int ballCount = countBall(inputNum, randomNum);
+        int strikeCount = countStrike(inputNum, randomNum);
+
 
 
         StringBuilder sb = new StringBuilder();
@@ -39,8 +45,26 @@ public class Service {
     }
 
     public int countBall(int inputNum, int randomNum) {
-
         int result = 0;
+
+        List<Integer> inputNumList = new ArrayList<>();
+        List<Integer> randomNumList = new ArrayList<>();
+
+        for (int i = 0; i < 3; i++) {
+            int by = (int) Math.pow(10, (2 - i));
+            inputNumList.add(inputNum / by);
+            randomNumList.add(randomNum / by);
+            inputNum %= by;
+            randomNum %= by;
+        }
+
+        for (int i = 0; i < 3; i++) {
+            if (randomNumList.contains(inputNumList.get(i))) {
+                if (!(randomNumList.indexOf(inputNumList.get(i)) == i)) {
+                    result++;
+                }
+            }
+        }
 
         return result;
     }
