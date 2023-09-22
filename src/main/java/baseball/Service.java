@@ -1,5 +1,7 @@
 package baseball;
 
+import camp.nextstep.edu.missionutils.Randoms;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,16 +27,24 @@ public class Service {
     }
 
     public int generateRandomNumber() {
-        int randomNum = (int) (Math.random() * 1000);
-        String randomStr = String.valueOf(randomNum);
-
-        while (randomStr.contains("0") || !allDifferent(randomStr)) {
-            randomNum = (int) (Math.random() * 1000);
-            randomStr = String.valueOf(randomNum);
+        ArrayList<Integer> randomNum = new ArrayList<>();
+        while (randomNum.size() < 3) {
+            int randomDigit = Randoms.pickNumberInRange(1, 9);
+            if (!randomNum.contains(randomDigit)) {
+                randomNum.add(randomDigit);
+            }
         }
-        randomNumberHolder.set(randomNum);
 
-        return randomNum;
+        StringBuilder randomStr = new StringBuilder();
+        for (int i = 0; i < 3; i++) {
+            randomStr.append(randomNum.get(i));
+        }
+
+        int completeRandomNum = Integer.parseInt(new String(randomStr));
+
+        randomNumberHolder.set(completeRandomNum);
+
+        return completeRandomNum;
     }
 
     private boolean allDifferent(String randomStr) {
@@ -69,7 +79,7 @@ public class Service {
                 }
             }
         }
-        System.out.println("정답 : " + randomNum);
+//        System.out.println("정답 : " + randomNum);
 
         return sb;
     }

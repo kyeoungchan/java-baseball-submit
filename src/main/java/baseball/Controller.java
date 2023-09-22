@@ -1,5 +1,7 @@
 package baseball;
 
+import camp.nextstep.edu.missionutils.Console;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -30,12 +32,13 @@ public class Controller {
 
     public void inputUserNum() {
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         String input = null;
         try {
-            input = br.readLine();
-        } catch (IOException e) {
+//            input = br.readLine();
+            input = Console.readLine();
+        } catch (Exception e) {
             // 잘못된 입력은 IllegalArgumentException으로 날린다.
             throw new IllegalArgumentException(e);
         }
@@ -59,12 +62,13 @@ public class Controller {
 
     public void inputIfContinue() {
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         String input = null;
         try {
-            input = br.readLine();
-        } catch (IOException e) {
+//            input = br.readLine();
+            input = Console.readLine();
+        } catch (Exception e) {
             // 잘못된 입력은 IllegalArgumentException 으로 날린다.
             throw new IllegalArgumentException("입출력 에러입니다.", e);
         }
