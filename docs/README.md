@@ -28,7 +28,7 @@
     - `void inputIfContinue()`
         - → Validator.validateContinue(String inputFlag)
         - → printIfContinue(int number)
-        - -> isRemaining()
+        - → isRemaining()
     - `void printIfContinue(int number)`
 - Service
     - `StringBuilder generateRandomNumber()`
@@ -38,9 +38,9 @@
         - → generateRandomNumber() call
         - → countBall(int inputNum, int randomNum) call
         - → countStrike(int inputNum, int randomNum) call
-        - -> isRemaining() call
-    - boolean isRemaining()
+        - → isRemaining() call
+    - `boolean isRemaining()`
 - Validator
     - `void validateThreeNum(String inputNum)`
     - `void validateContinue(String inputFlag)`
-    - 공통으로 사용하는 내부 메서드 : validateIntType(String inputNum), validateIfNull(String input)
+    - 공통으로 사용하는 내부 메서드 : `validateIntType(String inputNum),` `validateIfNull(String input)`
