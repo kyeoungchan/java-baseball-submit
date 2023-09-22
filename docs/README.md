@@ -19,6 +19,7 @@
 객체 다이어 그램
 
 - Controller
+    - `void initiatingGame()`
     - `void inputUserNum()`
         - → Validator.validateThreeNum(String inputNum)
         - → printResult(int number) call
@@ -38,7 +39,7 @@
         - → generateRandomNumber() call
         - → countBall(int inputNum, int randomNum) call
         - → countStrike(int inputNum, int randomNum) call
-    - `boolean isRemaining()`
+    - `boolean get()`
 - Validator
     - `void validateThreeNum(String inputNum)`
     - `void validateContinue(String inputFlag)`

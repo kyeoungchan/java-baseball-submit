@@ -23,9 +23,13 @@ public class Controller {
         return instance;
     }
 
+    public void initiatingGame() {
+        System.out.println(INITIATING_BASEBALL_GAME);
+        inputUserNum();
+    }
+
     public void inputUserNum() {
 
-        System.out.println(INITIATING_BASEBALL_GAME);
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         String input = null;
@@ -44,7 +48,7 @@ public class Controller {
 
         System.out.println(new String(resultSB));
 
-        if (service.isRemaining()) {
+        if (service.getGameStatus()) {
             inputUserNum();
         } else {
             System.out.println(ENDING_BASEBALL_GAME);

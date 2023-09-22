@@ -6,7 +6,9 @@ import java.util.List;
 public class Service {
 
     private static Service instance;
-    private boolean remaining = true;
+    //    private boolean remaining = true;
+    private final ThreadLocal<Boolean> gamePlayingStatus = new ThreadLocal<>();
+    private final ThreadLocal<Integer> randomNumberHolder = new ThreadLocal<>();
 
     private final static String BALL = "볼 ";
     private final static String STRIKE = "스트라이크 ";
@@ -14,7 +16,6 @@ public class Service {
 
 
     private Service() {
-        remaining = true;
     }
 
     public static Service getInstance() {
@@ -30,12 +31,16 @@ public class Service {
         while (String.valueOf(randomNum).contains("0")) {
             randomNum = (int) (Math.random() * 1000);
         }
+        randomNumberHolder.set(randomNum);
 
         return randomNum;
     }
 
     public StringBuilder calculateResult(int inputNum) {
-        int randomNum = generateRandomNumber();
+
+        gamePlayingStatus.set(true);
+
+        int randomNum = randomNumberHolder.get() != null ? randomNumberHolder.get() : generateRandomNumber();
 
         int ballCount = countBall(inputNum, randomNum);
         int strikeCount = countStrike(inputNum, randomNum);
@@ -54,10 +59,11 @@ public class Service {
                 sb.append(strikeCount);
                 sb.append(STRIKE);
                 if (strikeCount == 3) {
-                    remaining = false;
+                    gamePlayingStatus.set(false);
                 }
             }
         }
+        System.out.println("정답 : " + randomNum);
 
         return sb;
     }
@@ -102,7 +108,7 @@ public class Service {
         return result;
     }
 
-    public boolean isRemaining() {
-        return remaining;
+    public boolean getGameStatus() {
+        return gamePlayingStatus.get();
     }
 }
