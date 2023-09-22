@@ -58,8 +58,8 @@ public class Controller {
         try {
             input = br.readLine();
         } catch (IOException e) {
-            // 잘못된 입력은 IllegalArgumentException으로 날린다.
-            throw new IllegalArgumentException(e);
+            // 잘못된 입력은 IllegalArgumentException 으로 날린다.
+            throw new IllegalArgumentException("입출력 에러입니다.", e);
         }
         Validator.validateContinue(input); // 문제가 있으면 예외가 날라가게 돼있다.
         int inputFlag = Integer.parseInt(input);

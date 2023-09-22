@@ -37,9 +37,10 @@
     - `StringBuilder calculateResult(int inputNum)`
         - → generateRandomNumber() call
         - → countBall(int inputNum, int randomNum) call
-        - → countStrike(int inputNum, intrandomNum) call
+        - → countStrike(int inputNum, int randomNum) call
         - -> isRemaining() call
     - boolean isRemaining()
 - Validator
     - `void validateThreeNum(String inputNum)`
     - `void validateContinue(String inputFlag)`
+    - 공통으로 사용하는 내부 메서드 : validateIntType(String inputNum), validateIfNull(String input)
