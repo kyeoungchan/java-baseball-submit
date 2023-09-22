@@ -1,13 +1,17 @@
 package baseball;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Service {
 
     private static Service instance;
-    private boolean remaining = false;
+    private boolean remaining = true;
+
+    private final static String BALL = "볼 ";
+    private final static String STRIKE = "스트라이크 ";
+    private final static String NOTHING = "낫싱";
+
 
     private Service() {
         remaining = true;
@@ -30,17 +34,31 @@ public class Service {
         return randomNum;
     }
 
-
-
     public StringBuilder calculateResult(int inputNum) {
         int randomNum = generateRandomNumber();
 
         int ballCount = countBall(inputNum, randomNum);
         int strikeCount = countStrike(inputNum, randomNum);
 
-
-
         StringBuilder sb = new StringBuilder();
+
+        if (ballCount == 0 && strikeCount == 0) {
+            sb.append(NOTHING);
+        } else {
+            if (ballCount != 0) {
+                sb.append(ballCount);
+                sb.append(BALL);
+            }
+
+            if (strikeCount != 0) {
+                sb.append(strikeCount);
+                sb.append(STRIKE);
+                if (strikeCount == 3) {
+                    remaining = false;
+                }
+            }
+        }
+
         return sb;
     }
 
@@ -74,7 +92,7 @@ public class Service {
 
         for (int i = 0; i < 3; i++) {
             int by = (int) Math.pow(10, 2 - i);
-            if ((int) inputNum / by == (int) randomNum / by) {
+            if (inputNum / by == (int) randomNum / by) {
                 result += 1;
             }
             inputNum %= by;

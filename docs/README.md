@@ -38,7 +38,6 @@
         - → generateRandomNumber() call
         - → countBall(int inputNum, int randomNum) call
         - → countStrike(int inputNum, int randomNum) call
-        - → isRemaining() call
     - `boolean isRemaining()`
 - Validator
     - `void validateThreeNum(String inputNum)`
