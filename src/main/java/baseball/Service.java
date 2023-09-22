@@ -42,6 +42,12 @@ public class Service {
 
         int result = 0;
 
+        return result;
+    }
+
+    public int countStrike(int inputNum, int randomNum) {
+        int result = 0;
+
         for (int i = 0; i < 3; i++) {
             int by = (int) Math.pow(10, 2 - i);
             if ((int) inputNum / by == (int) randomNum / by) {
