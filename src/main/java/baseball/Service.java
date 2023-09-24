@@ -15,7 +15,9 @@ public class Service {
     private final static String STRIKE = "스트라이크 ";
     private final static String NOTHING = "낫싱";
 
-
+    /**
+     * 싱글톤 패턴 적용
+     */
     private Service() {
     }
 
@@ -43,41 +45,47 @@ public class Service {
         int completeRandomNum = Integer.parseInt(new String(randomStr));
 
         randomNumberHolder.set(completeRandomNum);
-
         return completeRandomNum;
     }
 
-    private boolean allDifferent(String randomStr) {
-        return randomStr.charAt(0) != randomStr.charAt(1) && randomStr.charAt(1) != randomStr.charAt(2) && randomStr.charAt(0) != randomStr.charAt(2);
+    private int getRandomNumber() {
+
+        int randomNum = 0;
+        if (randomNumberHolder.get() != null) {
+            randomNum = randomNumberHolder.get();
+        } else {
+            randomNum = generateRandomNumber();
+        }
+        return randomNum;
     }
 
     public StringBuilder calculateResult(int inputNum) {
 
         gamePlayingStatus.set(true);
 
-        int randomNum = randomNumberHolder.get() != null ? randomNumberHolder.get() : generateRandomNumber();
+        int randomNum = getRandomNumber();
 
         int ballCount = countBall(inputNum, randomNum);
         int strikeCount = countStrike(inputNum, randomNum);
 
         StringBuilder sb = new StringBuilder();
 
+        if (ballCount != 0) {
+            sb.append(ballCount);
+            sb.append(BALL);
+        }
+
+        if (strikeCount != 0) {
+            sb.append(strikeCount);
+            sb.append(STRIKE);
+            if (strikeCount == 3) {
+                gamePlayingStatus.set(false);
+                randomNumberHolder.remove(); // 매 게임이 끝날 때마다 랜덤함수는 종료시킨다.
+            }
+        }
+
         if (ballCount == 0 && strikeCount == 0) {
             sb.append(NOTHING);
-        } else {
-            if (ballCount != 0) {
-                sb.append(ballCount);
-                sb.append(BALL);
-            }
-
-            if (strikeCount != 0) {
-                sb.append(strikeCount);
-                sb.append(STRIKE);
-                if (strikeCount == 3) {
-                    gamePlayingStatus.set(false);
-                    randomNumberHolder.remove(); // 매 게임이 끝날 때마다 랜덤함수는 종료시킨다.
-                }
-            }
         }
 //        System.out.println("정답 : " + randomNum);
 
@@ -99,10 +107,8 @@ public class Service {
         }
 
         for (int i = 0; i < 3; i++) {
-            if (randomNumList.contains(inputNumList.get(i))) {
-                if (!(randomNumList.indexOf(inputNumList.get(i)) == i)) {
-                    result++;
-                }
+            if (randomNumList.contains(inputNumList.get(i))&& !(randomNumList.indexOf(inputNumList.get(i)) == i)) {
+                result++;
             }
         }
 

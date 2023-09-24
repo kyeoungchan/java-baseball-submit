@@ -16,7 +16,7 @@
 - 컨트롤러
     - 숫자 입력기 User Interface
 
-객체 다이어 그램
+객체 다이어그램
 
 - Controller
     - `void initiatingGame()`
@@ -39,7 +39,7 @@
         - → generateRandomNumber() call
         - → countBall(int inputNum, int randomNum) call
         - → countStrike(int inputNum, int randomNum) call
-    - `boolean get()`
+    - `boolean getGameStatus()
 - Validator
     - `void validateThreeNum(String inputNum)`
     - `void validateContinue(String inputFlag)`
