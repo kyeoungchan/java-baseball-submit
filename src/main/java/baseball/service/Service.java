@@ -1,5 +1,6 @@
 package baseball.service;
 
+import baseball.domain.StatusHolder;
 import camp.nextstep.edu.missionutils.Randoms;
 
 import java.util.ArrayList;
@@ -10,13 +11,13 @@ import static baseball.service.ServiceConstants.*;
 public class Service {
 
     private static Service instance;
-    private final ThreadLocal<Boolean> gamePlayingStatus = new ThreadLocal<>();
-    private final ThreadLocal<Integer> randomNumberHolder = new ThreadLocal<>();
+    private final StatusHolder statusHolder;
 
     /**
      * 싱글톤 패턴 적용
      */
     private Service() {
+        statusHolder = StatusHolder.getInstance();
     }
 
     public static Service getInstance() {
@@ -42,24 +43,25 @@ public class Service {
 
         int completeRandomNum = Integer.parseInt(new String(randomStr));
 
-        randomNumberHolder.set(completeRandomNum);
+        statusHolder.restoreRandomNumber(completeRandomNum);
         return completeRandomNum;
     }
 
     private int getRandomNumber() {
 
         int randomNum = 0;
-        if (randomNumberHolder.get() != null) {
-            randomNum = randomNumberHolder.get();
+        if (statusHolder.ifHoldRandomNumber()) {
+            randomNum = statusHolder.getRandomNumber();
         } else {
             randomNum = generateRandomNumber();
+            statusHolder.restoreRandomNumber(randomNum);
         }
         return randomNum;
     }
 
     public String calculateResult(int inputNum) {
 
-        gamePlayingStatus.set(true);
+        statusHolder.setGamePlayingStatus(true);
 
         int randomNum = getRandomNumber();
 
@@ -77,8 +79,8 @@ public class Service {
             sb.append(strikeCount);
             sb.append(STRIKE);
             if (strikeCount == MAX_COUNT) {
-                gamePlayingStatus.set(false);
-                randomNumberHolder.remove(); // 매 게임이 끝날 때마다 랜덤함수는 종료시킨다.
+                statusHolder.setGamePlayingStatus(false);
+                statusHolder.destroyRandomNumber(); // 매 게임이 끝날 때마다 랜덤함수는 종료시킨다.
             }
         }
 
@@ -105,7 +107,7 @@ public class Service {
         }
 
         for (int i = 0; i < 3; i++) {
-            if (randomNumList.contains(inputNumList.get(i))&& !(randomNumList.indexOf(inputNumList.get(i)) == i)) {
+            if (randomNumList.contains(inputNumList.get(i)) && !(randomNumList.indexOf(inputNumList.get(i)) == i)) {
                 result++;
             }
         }
@@ -128,13 +130,13 @@ public class Service {
     }
 
     public boolean getGameStatus() {
-        return gamePlayingStatus.get();
+        return statusHolder.getGameStatus();
     }
 
     /**
      * 사용자가 게임을 종료하였으므로 gamePlayingStatus도 제거한다.
      */
     public void destroyGameStatus() {
-        gamePlayingStatus.remove();
+        statusHolder.destroyGameStatus();
     }
 }

@@ -47,3 +47,15 @@
     - `void validateContinue(String inputFlag)`
     - `String getIOValidatedInput()`
     - 공통으로 사용하는 내부 메서드 : `validateIntType(String inputNum),` `validateIfNull(String input)`
+- StatusHolder
+  - Attribute 
+    - ThreadLocal<Boolean> gamePlayingStatus
+    - ThreadLocal<Integer> randomNumberHolder
+  - Function
+    - void setGameStatus(boolean ifPlaying)
+    - boolean getGameStatus()
+    - void destroyGameStatus()
+    - void restoreRandomNumber(int randomNumber)
+    - boolean ifHoldRandomNumber()
+    - int getRandomNumber()
+    - void destroyRandomNumber()
