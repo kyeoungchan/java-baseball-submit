@@ -1,19 +1,17 @@
-package baseball;
+package baseball.service;
 
 import camp.nextstep.edu.missionutils.Randoms;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static baseball.service.ServiceConstants.*;
+
 public class Service {
 
     private static Service instance;
     private final ThreadLocal<Boolean> gamePlayingStatus = new ThreadLocal<>();
     private final ThreadLocal<Integer> randomNumberHolder = new ThreadLocal<>();
-
-    private final static String BALL = "볼 ";
-    private final static String STRIKE = "스트라이크 ";
-    private final static String NOTHING = "낫싱";
 
     /**
      * 싱글톤 패턴 적용
@@ -30,7 +28,7 @@ public class Service {
 
     public int generateRandomNumber() {
         ArrayList<Integer> randomNum = new ArrayList<>();
-        while (randomNum.size() < 3) {
+        while (randomNum.size() < FIXED_CIPHER) {
             int randomDigit = Randoms.pickNumberInRange(1, 9);
             if (!randomNum.contains(randomDigit)) {
                 randomNum.add(randomDigit);
@@ -38,7 +36,7 @@ public class Service {
         }
 
         StringBuilder randomStr = new StringBuilder();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < FIXED_CIPHER; i++) {
             randomStr.append(randomNum.get(i));
         }
 
@@ -78,7 +76,7 @@ public class Service {
         if (strikeCount != 0) {
             sb.append(strikeCount);
             sb.append(STRIKE);
-            if (strikeCount == 3) {
+            if (strikeCount == MAX_COUNT) {
                 gamePlayingStatus.set(false);
                 randomNumberHolder.remove(); // 매 게임이 끝날 때마다 랜덤함수는 종료시킨다.
             }
@@ -98,7 +96,7 @@ public class Service {
         List<Integer> inputNumList = new ArrayList<>();
         List<Integer> randomNumList = new ArrayList<>();
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < MAX_COUNT; i++) {
             int by = (int) Math.pow(10, (2 - i));
             inputNumList.add(inputNum / by);
             randomNumList.add(randomNum / by);
@@ -118,7 +116,7 @@ public class Service {
     public int countStrike(int inputNum, int randomNum) {
         int result = 0;
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < MAX_COUNT; i++) {
             int by = (int) Math.pow(10, 2 - i);
             if (inputNum / by == (int) randomNum / by) {
                 result += 1;
@@ -126,7 +124,6 @@ public class Service {
             inputNum %= by;
             randomNum %= by;
         }
-
         return result;
     }
 

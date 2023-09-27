@@ -1,16 +1,13 @@
-package baseball;
+package baseball.controller;
 
+import baseball.service.Service;
+import baseball.Validator;
 import camp.nextstep.edu.missionutils.Console;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import static baseball.controller.ControllerConstants.*;
 
 public class Controller {
 
-    private static final String INITIATING_BASEBALL_GAME = "숫자 야구 게임을 시작합니다.";
-    private static final String ENDING_BASEBALL_GAME = "3개의 숫자를 모두 맞히셨습니다! 게임 종료";
-    private static final String WILL_YOU_CONTINUE = "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.";
     private static Controller instance;
     private final Service service;
 
@@ -26,17 +23,14 @@ public class Controller {
     }
 
     public void initiatingGame() {
-        System.out.println(INITIATING_BASEBALL_GAME);
+        System.out.println(INITIATING_GAME_ANNOUNCEMENT);
         inputUserNum();
     }
 
     public void inputUserNum() {
 
-//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         String input = null;
         try {
-//            input = br.readLine();
             input = Console.readLine();
         } catch (Exception e) {
             // 잘못된 입력은 IllegalArgumentException으로 날린다.
@@ -54,19 +48,16 @@ public class Controller {
         if (service.getGameStatus()) {
             inputUserNum();
         } else {
-            System.out.println(ENDING_BASEBALL_GAME);
-            System.out.println(WILL_YOU_CONTINUE);
+            System.out.println(ENDING_GAME_ANNOUNCEMENT);
+            System.out.println(ASK_IF_CONTINUE);
             inputIfContinue();
         }
     }
 
     public void inputIfContinue() {
 
-//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         String input = null;
         try {
-//            input = br.readLine();
             input = Console.readLine();
         } catch (Exception e) {
             // 잘못된 입력은 IllegalArgumentException 으로 날린다.
@@ -78,9 +69,9 @@ public class Controller {
 
     public void printIfContinue(int number) {
 
-        if (number == 1) {
+        if (number == CONTINUE_ANSWER) {
             initiatingGame();
-        } else if (number == 2) {
+        } else if (number == EXIT_ANSWER) {
             service.destroyGameStatus();
         }
     }
