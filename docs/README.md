@@ -21,12 +21,14 @@
 - Controller
     - `void initiatingGame()`
     - `void inputUserNum()`
+        - → Validator.getIOValidatedInput()
         - → Validator.validateThreeNum(String inputNum)
         - → printResult(int number) call
     - `void printResult(int number)`
         - → Service.calculateResult(int inputNum) call
         - → inputIfContinue()
     - `void inputIfContinue()`
+        - → Validator.getIOValidatedInput() 
         - → Validator.validateContinue(String inputFlag)
         - → printIfContinue(int number)
         - → isRemaining()
@@ -35,12 +37,13 @@
     - `StringBuilder generateRandomNumber()`
     - `int countBall(int inputNum, int randomNum)`
     - `int countStrike(int inputNum, int randomNum)`
-    - `StringBuilder calculateResult(int inputNum)`
+    - `String calculateResult(int inputNum)`
         - → generateRandomNumber() call
         - → countBall(int inputNum, int randomNum) call
         - → countStrike(int inputNum, int randomNum) call
-    - `boolean getGameStatus()
+    - `boolean getGameStatus()`
 - Validator
     - `void validateThreeNum(String inputNum)`
     - `void validateContinue(String inputFlag)`
+    - `String getIOValidatedInput()`
     - 공통으로 사용하는 내부 메서드 : `validateIntType(String inputNum),` `validateIfNull(String input)`

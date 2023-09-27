@@ -5,13 +5,16 @@ import baseball.validator.Validator;
 import camp.nextstep.edu.missionutils.Console;
 
 import static baseball.controller.ControllerConstants.*;
-import static baseball.validator.Validator.getIOValidatedInput;
+import static baseball.validator.Validator.*;
 
 public class Controller {
 
     private static Controller instance;
     private final Service service;
 
+    /**
+     * 싱글톤 패턴 적용
+     */
     private Controller() {
         service = Service.getInstance();
     }
@@ -30,14 +33,13 @@ public class Controller {
 
     public void inputUserNum() {
         String input = getIOValidatedInput(); // IOException 검증 메서드
-        Validator.validateThreeNum(input); // 문제가 있으면 예외가 날라가게 돼있다.
+        validateThreeNum(input); // 문제가 있으면 예외가 날라가게 돼있다.
         printResult(Integer.parseInt(input));
     }
 
     public void printResult(int number) {
-        StringBuilder resultSB = service.calculateResult(number);
-
-        System.out.println(new String(resultSB));
+        String result = service.calculateResult(number);
+        System.out.println(result);
 
         if (service.getGameStatus()) {
             inputUserNum();
@@ -50,12 +52,11 @@ public class Controller {
 
     public void inputIfContinue() {
         String input = getIOValidatedInput(); // IOException 검증 메서드
-        Validator.validateContinue(input); // 문제가 있으면 예외가 날라가게 돼있다.
+        validateContinue(input); // 문제가 있으면 예외가 날라가게 돼있다.
         printIfContinue(Integer.parseInt(input));
     }
 
     public void printIfContinue(int number) {
-
         if (number == CONTINUE_ANSWER) {
             initiatingGame();
         } else if (number == EXIT_ANSWER) {

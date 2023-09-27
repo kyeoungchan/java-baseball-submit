@@ -57,7 +57,7 @@ public class Service {
         return randomNum;
     }
 
-    public StringBuilder calculateResult(int inputNum) {
+    public String calculateResult(int inputNum) {
 
         gamePlayingStatus.set(true);
 
@@ -87,7 +87,7 @@ public class Service {
         }
 //        System.out.println("정답 : " + randomNum);
 
-        return sb;
+        return new String(sb);
     }
 
     public int countBall(int inputNum, int randomNum) {
