@@ -1,4 +1,6 @@
-package baseball;
+package baseball.validator;
+
+import camp.nextstep.edu.missionutils.Console;
 
 public class Validator {
 
@@ -19,7 +21,6 @@ public class Validator {
 
     public static void validateContinue(String inputFlag) {
         validateIfNull(inputFlag);
-
         int inputInt = validateIntType(inputFlag);
 
         if (inputInt < 1 || inputInt > 2) {
@@ -35,7 +36,6 @@ public class Validator {
 
         try {
             inputInt = Integer.parseInt(inputNum);
-
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("입력한 값이 숫자여야합니다.", e);
         }
@@ -49,5 +49,19 @@ public class Validator {
         if (input == null) {
             throw new IllegalArgumentException("입력한 값이 없습니다.");
         }
+    }
+
+    /**
+     * 입출력 예외를 날리기 위한 동적 프록시 사용
+     */
+    public static String getIOValidatedInput() {
+        String input = null;
+        try {
+            input = Console.readLine();
+        } catch (Exception e) {
+            // 잘못된 입력은 IllegalArgumentException 으로 날린다.
+            throw new IllegalArgumentException(e);
+        }
+        return input;
     }
 }

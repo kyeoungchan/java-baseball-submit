@@ -1,10 +1,11 @@
 package baseball.controller;
 
 import baseball.service.Service;
-import baseball.Validator;
+import baseball.validator.Validator;
 import camp.nextstep.edu.missionutils.Console;
 
 import static baseball.controller.ControllerConstants.*;
+import static baseball.validator.Validator.getIOValidatedInput;
 
 public class Controller {
 
@@ -28,14 +29,7 @@ public class Controller {
     }
 
     public void inputUserNum() {
-
-        String input = null;
-        try {
-            input = Console.readLine();
-        } catch (Exception e) {
-            // 잘못된 입력은 IllegalArgumentException으로 날린다.
-            throw new IllegalArgumentException(e);
-        }
+        String input = getIOValidatedInput(); // IOException 검증 메서드
         Validator.validateThreeNum(input); // 문제가 있으면 예외가 날라가게 돼있다.
         printResult(Integer.parseInt(input));
     }
@@ -55,14 +49,7 @@ public class Controller {
     }
 
     public void inputIfContinue() {
-
-        String input = null;
-        try {
-            input = Console.readLine();
-        } catch (Exception e) {
-            // 잘못된 입력은 IllegalArgumentException 으로 날린다.
-            throw new IllegalArgumentException("입출력 에러입니다.", e);
-        }
+        String input = getIOValidatedInput(); // IOException 검증 메서드
         Validator.validateContinue(input); // 문제가 있으면 예외가 날라가게 돼있다.
         printIfContinue(Integer.parseInt(input));
     }
@@ -75,6 +62,4 @@ public class Controller {
             service.destroyGameStatus();
         }
     }
-
-
 }

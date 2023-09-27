@@ -7,5 +7,4 @@ public class ControllerConstants {
 
     public static final int CONTINUE_ANSWER = 1;
     public static final int EXIT_ANSWER = 2;
-
 }
