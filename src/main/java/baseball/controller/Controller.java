@@ -1,8 +1,6 @@
 package baseball.controller;
 
 import baseball.service.Service;
-import baseball.validator.Validator;
-import camp.nextstep.edu.missionutils.Console;
 
 import static baseball.controller.ControllerConstants.*;
 import static baseball.validator.Validator.*;

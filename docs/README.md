@@ -39,23 +39,23 @@
     - `int countStrike(int inputNum, int randomNum)`
     - `String calculateResult(int inputNum)`
         - → generateRandomNumber() call
+        - → GamePlayingStatus.setStatus() call
         - → countBall(int inputNum, int randomNum) call
         - → countStrike(int inputNum, int randomNum) call
     - `boolean getGameStatus()`
+        - → GamePlayingStatus.getStatus()
+    - void destroyGameStatus()
+        - → GamePlayingStatus.destroyStatus()
 - Validator
     - `void validateThreeNum(String inputNum)`
     - `void validateContinue(String inputFlag)`
     - `String getIOValidatedInput()`
     - 공통으로 사용하는 내부 메서드 : `validateIntType(String inputNum),` `validateIfNull(String input)`
-- StatusHolder
-  - Attribute 
-    - ThreadLocal<Boolean> gamePlayingStatus
-    - ThreadLocal<Integer> randomNumberHolder
-  - Function
-    - void setGameStatus(boolean ifPlaying)
-    - boolean getGameStatus()
-    - void destroyGameStatus()
-    - void restoreRandomNumber(int randomNumber)
-    - boolean ifHoldRandomNumber()
-    - int getRandomNumber()
-    - void destroyRandomNumber()
+- RandomNumberHolder
+  - void restoreRandomNumber(int randomNumber)
+  - boolean ifHoldRandomNumber()
+  - int getRandomNumber()
+- GamePlayingStatus
+  - void setStatus(boolean ifPlaying)
+  - boolean getStatus()
+  - void destroyStatus()
